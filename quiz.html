@@ -15,33 +15,27 @@
      a few different ways so they hold up even if Octane tweaks
      the exact markup.
 
-     TWO OPTIONS — Option A is active. To switch, comment out
-     Option A and uncomment Option B.
+     Keeps the X clickable but forces it white so it stays
+     visible on a dark background.
      ============================================================ */
 
-  /* ---- OPTION A: REMOVE the X entirely (active) ---- */
   .octane-ai-quiz-rendered [class*="close" i],
   .octane-ai-quiz-rendered [aria-label*="close" i],
   .octane-ai-quiz-rendered [data-testid*="close" i],
   .octane-ai-quiz-rendered .oct-quiz-content > button:first-child,
-  .octane-ai-quiz-rendered .oct-quiz-content > *:first-child button {
-    display: none !important;
-  }
-
-  /* ---- OPTION B: keep the X but make it WHITE ----
-  .octane-ai-quiz-rendered [class*="close" i],
-  .octane-ai-quiz-rendered [aria-label*="close" i],
-  .octane-ai-quiz-rendered [data-testid*="close" i],
   .octane-ai-quiz-rendered [class*="close" i] svg,
   .octane-ai-quiz-rendered [aria-label*="close" i] svg,
+  .octane-ai-quiz-rendered [data-testid*="close" i] svg,
+  .octane-ai-quiz-rendered .oct-quiz-content > button:first-child svg,
   .octane-ai-quiz-rendered [class*="close" i] svg path,
-  .octane-ai-quiz-rendered [aria-label*="close" i] svg path {
+  .octane-ai-quiz-rendered [aria-label*="close" i] svg path,
+  .octane-ai-quiz-rendered [data-testid*="close" i] svg path,
+  .octane-ai-quiz-rendered .oct-quiz-content > button:first-child svg path {
     color: #fff !important;
     fill: #fff !important;
     stroke: #fff !important;
     opacity: 1 !important;
   }
-  */
 </style>
 </head>
 <body>
