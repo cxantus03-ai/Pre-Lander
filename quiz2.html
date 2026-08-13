@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allpure Quiz</title>
+
+<style>
+  /* ============================================================
+     Octane AI fullscreen quiz — close (X) button, top-right
+     ------------------------------------------------------------
+     In fullscreen mode Octane renders the close button as the
+     first element inside .oct-quiz-content, inside the
+     .octane-ai-quiz-rendered wrapper. The rules below target it
+     a few different ways so they hold up even if Octane tweaks
+     the exact markup.
+
+     Keeps the X clickable but forces it white so it stays
+     visible on a dark background.
+     ============================================================ */
+
+  .octane-ai-quiz-rendered [class*="close" i],
+  .octane-ai-quiz-rendered [aria-label*="close" i],
+  .octane-ai-quiz-rendered [data-testid*="close" i],
+  .octane-ai-quiz-rendered .oct-quiz-content > button:first-child,
+  .octane-ai-quiz-rendered [class*="close" i] svg,
+  .octane-ai-quiz-rendered [aria-label*="close" i] svg,
+  .octane-ai-quiz-rendered [data-testid*="close" i] svg,
+  .octane-ai-quiz-rendered .oct-quiz-content > button:first-child svg,
+  .octane-ai-quiz-rendered [class*="close" i] svg path,
+  .octane-ai-quiz-rendered [aria-label*="close" i] svg path,
+  .octane-ai-quiz-rendered [data-testid*="close" i] svg path,
+  .octane-ai-quiz-rendered .oct-quiz-content > button:first-child svg path {
+    color: #fff !important;
+    fill: #fff !important;
+    stroke: #fff !important;
+    opacity: 1 !important;
+  }
+</style>
+</head>
+<body>
+
+<div class="octane-ai-quiz " data-quiz-id="GrnhMzdtByIuehrs" data-embed-type="fullscreen"  >
+
+</div>
+<script src="https://app.octaneai.com/8k7ygh7ywl89mr9u/quiz.js" defer></script>
+
+</body>
+</html>
