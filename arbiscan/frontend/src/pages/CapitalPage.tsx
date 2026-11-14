@@ -3,8 +3,6 @@ import { api, type Capital } from "../api";
 import { btnPrimary, ErrorBox, Field, NumInput, Panel } from "../components/ui";
 import { exName, usd } from "../format";
 
-type Form = Record<string, string> & { balances: never };
-
 const FIELDS: [keyof Capital, string, string?][] = [
   ["total_capital", "Total trading capital $"],
   ["reserved_capital", "Reserved capital $", "never allocated"],
@@ -93,5 +91,3 @@ export default function CapitalPage() {
     </div>
   );
 }
-
-export type { Form };
