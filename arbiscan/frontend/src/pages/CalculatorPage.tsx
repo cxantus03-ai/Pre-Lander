@@ -23,7 +23,8 @@ function LiveCalc() {
   const { opps } = useLive();
   const sorted = useMemo(() => [...opps].sort((a, b) => Number(b.net_roi_pct ?? -1e9) - Number(a.net_roi_pct ?? -1e9)), [opps]);
   const [id, setId] = useState<string>("");
-  useEffect(() => { if (!id && sorted.length) setId(sorted[0].id); }, [sorted, id]);
+  // pick the best opportunity initially, and move on if the selected one disappears
+  useEffect(() => { if (sorted.length && !sorted.some((o) => o.id === id)) setId(sorted[0].id); }, [sorted, id]);
   const opp = sorted.find((o) => o.id === id);
   return (
     <div className="space-y-3">
@@ -82,7 +83,7 @@ function ManualCalc() {
     <div className="space-y-3">
       <Panel title="Structure">
         <div className="flex flex-wrap items-center gap-3">
-          <select className={`${inputCls} w-auto`} value={structure} onChange={(e) => setStructure(e.target.value as typeof structure)}>
+          <select className={inputCls.replace("w-full", "w-auto")} value={structure} onChange={(e) => setStructure(e.target.value as typeof structure)}>
             <option value="binary">Binary complement (YES + NO, 2 legs)</option>
             <option value="complete_set">Multi-outcome: buy YES on every outcome</option>
             <option value="all_no">Multi-outcome: buy NO on every outcome</option>

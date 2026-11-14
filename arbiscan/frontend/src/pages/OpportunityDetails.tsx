@@ -86,7 +86,7 @@ export default function OpportunityDetails() {
                 <tbody>
                   {o.legs.map((l, i) => (
                     <tr key={i}>
-                      <td className="max-w-[260px] truncate text-gray-200" title={l.title}>{l.label}</td>
+                      <td className="max-w-[260px] truncate text-gray-200" title={l.title}>{l.label.replace(l.exchange, exName(l.exchange))}</td>
                       <td>{exName(l.exchange)}</td>
                       <td className={l.side === "yes" ? "text-pos" : "text-neg"}>{l.side.toUpperCase()}</td>
                       <td className="num">{price(l.best_ask)}</td>
@@ -95,7 +95,7 @@ export default function OpportunityDetails() {
                       <td>{l.fee_verified ? <span className="text-mute">{l.fee_kind}</span> : <span className="text-warn">{l.fee_kind} (est.)</span>}</td>
                       <td><Badge kind={l.status === "open" ? "pass" : "warn"}>{l.status}</Badge></td>
                       <td className={`num ${l.quote_age_s > 45 ? "text-neg" : l.quote_age_s > 15 ? "text-warn" : "text-gray-300"}`}>{duration(l.quote_age_s)}</td>
-                      <td className="font-mono text-[11px] text-mute">{time(l.received_at)}{l.exchange_ts ? ` (exch ${time(l.exchange_ts)})` : ""}</td>
+                      <td className="font-mono text-[11px] text-mute" title={l.exchange_ts ? `exchange timestamp ${l.exchange_ts}` : "no exchange timestamp"}>{time(l.received_at)}</td>
                     </tr>
                   ))}
                 </tbody>

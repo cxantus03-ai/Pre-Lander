@@ -45,7 +45,7 @@ function Markets() {
   }, [dq, exchange, category, status, matched, hasBook, sort, offset]);
 
   const sel = (v: string, set: (s: string) => void, opts: [string, string][], label: string) => (
-    <select className={`${inputCls} w-auto`} value={v} onChange={(e) => set(e.target.value)} aria-label={label}>
+    <select className={inputCls.replace("w-full", "w-auto")} value={v} onChange={(e) => set(e.target.value)} aria-label={label}>
       {opts.map(([k, l]) => <option key={k} value={k}>{l}</option>)}
     </select>
   );
@@ -299,7 +299,7 @@ function ManualMatchForm({ onCreated }: { onCreated: () => void }) {
         <Field label="Market A key" hint="format exchange:external_id, e.g. polymarket:559651"><input className={inputCls} value={a} onChange={(e) => setA(e.target.value)} /></Field>
         <Field label="Market B key"><input className={inputCls} value={b} onChange={(e) => setB(e.target.value)} /></Field>
         <div className="flex flex-wrap items-center gap-3">
-          <select className={`${inputCls} w-auto`} value={orientation} onChange={(e) => setOrientation(e.target.value)}><option value="same">Same orientation</option><option value="inverted">Inverted</option></select>
+          <select className={inputCls.replace("w-full", "w-auto")} value={orientation} onChange={(e) => setOrientation(e.target.value)}><option value="same">Same orientation</option><option value="inverted">Inverted</option></select>
           <Check label="Approve as verified" checked={approve} onChange={setApprove} />
         </div>
         <Field label="Note"><input className={inputCls} value={note} onChange={(e) => setNote(e.target.value)} /></Field>

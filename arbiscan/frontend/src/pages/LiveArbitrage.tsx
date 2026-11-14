@@ -34,7 +34,7 @@ export default function LiveArbitrage() {
   const [items, setItems] = useState<OppSummary[]>([]);
   const [total, setTotal] = useState(0);
   const [error, setError] = useState<unknown>(null);
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(() => typeof window === "undefined" || window.innerWidth >= 768);
   const df = useDebounced(f, 250);
   const dv = useDebounced(version, 400);
 
@@ -75,7 +75,7 @@ export default function LiveArbitrage() {
       </div>
       <div className="flex flex-wrap items-end gap-2">
         <div className="flex-1 min-w-[200px]"><input className={inputCls} placeholder="Search events or contracts…" value={f.q} onChange={(e) => set("q")(e.target.value)} /></div>
-        <select className={`${inputCls} w-auto`} value={f.sort} onChange={(e) => set("sort")(e.target.value)} aria-label="Sort">
+        <select className={inputCls.replace("w-full", "w-auto")} value={f.sort} onChange={(e) => set("sort")(e.target.value)} aria-label="Sort">
           {SORTS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
         </select>
         <button className={btnCls} onClick={() => set("order")(f.order === "desc" ? "asc" : "desc")}>{f.order === "desc" ? "↓ desc" : "↑ asc"}</button>
@@ -129,7 +129,7 @@ export default function LiveArbitrage() {
         </Panel>
       )}
       <ErrorBox error={error} />
-      <Panel title="Opportunities" right={<span className="text-mute">green = verified · amber = needs verification · red = expired/invalid · gray = stale/unavailable</span>} bodyClass="p-0">
+      <Panel title="Opportunities" right={<span className="text-mute hidden md:inline">green = verified · amber = needs verification · red = expired/invalid · gray = stale/unavailable</span>} bodyClass="p-0">
         <OppTable opps={items} extended={extended} maxHeight="70vh" />
       </Panel>
     </div>

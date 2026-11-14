@@ -1,6 +1,8 @@
 """Map exchange-specific categories/tags onto ArbiScan's category set."""
 from __future__ import annotations
 
+import re
+
 CATEGORIES = ["politics", "sports", "economics", "crypto", "weather", "entertainment", "science_tech", "finance", "other"]
 
 _RULES: list[tuple[str, tuple[str, ...]]] = [
@@ -12,7 +14,7 @@ _RULES: list[tuple[str, tuple[str, ...]]] = [
     ("finance", ("financ", "stock", "s&p", "nasdaq", "equities", "commodit", "companies", "ipo", "earnings", "business")),
     ("politics", ("politic", "election", "congress", "senate", "president", "geopolit", "world", "government", "trump", "court")),
     ("entertainment", ("entertain", "culture", "pop culture", "movie", "music", "oscars", "grammy", "tv", "celebrit", "awards", "media")),
-    ("science_tech", ("science", "tech", " ai", "artificial intelligence", "space", "health", "mentions")),
+    ("science_tech", ("science", "tech", "technology", "ai", "artificial intelligence", "space", "health", "mentions")),
 ]
 
 
@@ -21,6 +23,8 @@ def normalize_category(*labels: str | None) -> str:
     if not text.strip():
         return "other"
     for cat, needles in _RULES:
-        if any(n in text for n in needles):
+        # whole-word prefix match: "rain" must not match "Ukraine", but "econom" matches "economics"
+        if any(re.search(r"(?<![a-z0-9])" + re.escape(n.strip()) + (r"(?![a-z0-9])" if len(n.strip()) <= 4 else ""), text)
+               for n in needles):
             return cat
     return "other"

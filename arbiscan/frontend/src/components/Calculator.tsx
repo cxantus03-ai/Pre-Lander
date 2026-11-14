@@ -139,7 +139,7 @@ export function CalcResultView({ r }: { r: CalcResult }) {
             <tbody>
               {ev.legs.map((l) => (
                 <tr key={l.leg_id + l.market_key}>
-                  <td className="text-gray-300 max-w-[200px] truncate" title={l.label}>{l.label}</td>
+                  <td className="text-gray-300 max-w-[200px] truncate" title={l.label}>{l.label.replace(l.exchange, exName(l.exchange))}</td>
                   <td>{exName(l.exchange)}</td>
                   <td>{l.side.toUpperCase()}</td>
                   <td className="num">{qty(l.qty)}</td>

@@ -23,7 +23,7 @@ const Row = memo(function Row({ o, extended, onOpen }: { o: OppSummary; extended
   const roiCls = o.classification === "verified" && o.state === "active" ? "text-pos" : o.classification === "potential" ? "text-warn" : signClass(o.net_roi_pct);
   return (
     <tr className={`cursor-pointer ${rowTone}`} onClick={() => onOpen(o.id)}>
-      <td className="max-w-[340px]">
+      <td className="max-w-[300px]">
         <div className="flex items-center gap-1.5">
           <Badge kind={o.classification} />
           {o.state !== "active" && <Badge kind={o.state} />}

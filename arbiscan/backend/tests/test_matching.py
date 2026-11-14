@@ -158,3 +158,11 @@ def test_different_participants_rejected():
     c = mk("polymarket", "p2", "Trump, Putin, and Zelensky meet together before 2027?", "Resolves Yes if they meet before 2027.")
     d = mk("kalshi", "P2", "Will Trump, Xi and Putin meet together before 2027?", "Resolves Yes if they meet before 2027.")
     assert run(c, d).status == MatchStatus.INCOMPATIBLE
+
+
+def test_category_whole_word_matching():
+    from app.core.categories import normalize_category as n
+    assert n("Putin out as President of Russia? Ukraine ceasefire") == "politics"
+    assert n("Will it rain in NYC on Friday?") == "weather"
+    assert n("Ethics committee report") != "crypto"
+    assert n("Economics") == "economics" and n("Bitcoin above 100k") == "crypto"
