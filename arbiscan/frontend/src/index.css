@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html, body { background: #07080a; }
+body { font-feature-settings: "tnum" 1; -webkit-font-smoothing: antialiased; font-size: 13px; }
+.tabular-nums { font-variant-numeric: tabular-nums; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #2a313a; }
+::-webkit-scrollbar-track { background: #0c0e11; }
+table.dense { width: 100%; border-collapse: collapse; }
+table.dense th { position: sticky; top: 0; background: #111418; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: #8a94a0; text-align: left; padding: 5px 8px; border-bottom: 1px solid #1f252c; white-space: nowrap; z-index: 1; }
+table.dense td { padding: 4px 8px; border-bottom: 1px solid #161a1f; white-space: nowrap; font-size: 12px; }
+table.dense tbody tr:hover { background: #111418; }
+table.dense td.num, table.dense th.num { text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+select { background-color: #07080a; }
+input[type=number]::-webkit-inner-spin-button { opacity: .3; }
