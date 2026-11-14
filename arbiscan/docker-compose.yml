@@ -1,0 +1,45 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: arbiscan
+      POSTGRES_DB: arbiscan
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U arbiscan -d arbiscan"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    restart: unless-stopped
+
+  app:
+    build: .
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      ARBISCAN_DATABASE_URL: postgresql+psycopg2://arbiscan:${POSTGRES_PASSWORD:-change-me}@db:5432/arbiscan
+      ARBISCAN_REDIS_URL: redis://redis:6379/0
+      ARBISCAN_CORS_ORIGINS: http://localhost:8080
+    ports:
+      - "8080:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    # Mount a Kalshi private key read-only if you enable the Kalshi WebSocket feed:
+    # volumes:
+    #   - ./secrets/kalshi.pem:/run/secrets/kalshi.pem:ro
+    # and set ARBISCAN_KALSHI_PRIVATE_KEY_PATH=/run/secrets/kalshi.pem in .env
+    restart: unless-stopped
+
+volumes:
+  pgdata:
